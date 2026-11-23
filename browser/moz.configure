@@ -8,6 +8,10 @@ imply_option("MOZ_SERVICES_SYNC", True)
 imply_option("MOZ_DEDICATED_PROFILES", True)
 imply_option("MOZ_BLOCK_PROFILE_DOWNGRADE", True)
 imply_option("MOZ_NORMANDY", False)
+# Toyser: crash reports are kept on this computer only (in
+# %APPDATA%\Biidama\Marble\Crash Reports\pending) and never sent anywhere:
+# the submission address goes nowhere.
+imply_option("--with-crashreporter-url", "https://crash-reports.invalid")
 imply_option("MOZ_PROFILE_MIGRATOR", True)
 
 
