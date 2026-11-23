@@ -2242,7 +2242,7 @@ pref("sidebar.newTool.migration.tiktok", "{}");
 pref("toyser.menus.modern", true);
 // Toyser version and update check (browser/components/toyser-update).
 // Bump toyser.version for every release; see docs/toyser-releases.md.
-pref("toyser.version", "1.0.0");
+pref("toyser.version", "1.1.0");
 pref("toyser.update.enabled", true);
 pref("toyser.update.repository", "ToyDeving/Marble2");
 // Marble Shields: built-in ad and tracker blocker (uBlock Origin engine,
