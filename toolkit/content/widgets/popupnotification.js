@@ -54,6 +54,23 @@
       }
 
       super.attributeChangedCallback(name, oldValue, newValue);
+      this._fixButtonVisibility();
+    }
+
+    /**
+     * Toyser: the inherited attributes set hidden="false" to show a button,
+     * but on the HTML <moz-button> any hidden attribute hides it, so the
+     * "Block" button of permission prompts was invisible. Also always show
+     * the close (X) button so every prompt can be dismissed.
+     */
+    _fixButtonVisibility() {
+      if (this.secondaryButton) {
+        this.secondaryButton.hidden =
+          this.getAttribute("secondarybuttonhidden") == "true";
+      }
+      if (this.closebutton) {
+        this.closebutton.hidden = false;
+      }
     }
 
     show() {
@@ -69,6 +86,7 @@
         this.checkbox.checked = false;
       }
 
+      this._fixButtonVisibility();
       this.hidden = false;
     }
 
