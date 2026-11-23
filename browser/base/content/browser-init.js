@@ -588,6 +588,12 @@ var gBrowserInit = {
       document.getElementById("searchbar-new")?.delayedStartupInit();
     }
     gProtectionsHandler.init();
+    ChromeUtils.importESModule(
+      "moz-src:///browser/components/marble-shields/MarbleShields.sys.mjs"
+    ).MarbleShields.init(window);
+    ChromeUtils.importESModule(
+      "moz-src:///browser/components/toyser-update/ToyserUpdate.sys.mjs"
+    ).ToyserUpdate.init(window);
     gTrustPanelHandler.init();
 
     let safeMode = document.getElementById("helpSafeMode");

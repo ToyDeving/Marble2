@@ -20,6 +20,9 @@ const toolsNameMap = {
   viewBookmarksSidebar: "bookmarks",
   viewOpenTabsSidebar: "opentabs",
   viewCPMSidebar: "passwords",
+  viewWhatsAppSidebar: "whatsapp",
+  viewInstagramSidebar: "instagram",
+  viewTikTokSidebar: "tiktok",
 };
 const EXPAND_ON_HOVER_DEBOUNCE_TIMEOUT_MS = 1000;
 const LAUNCHER_SPLITTER_WIDTH = 4;
@@ -235,6 +238,29 @@ var SidebarController = {
         recordSidebarVersion: true,
       }
     );
+
+    // Marble web panels: websites shown inside the sidebar.
+    for (const [site, commandID, host] of [
+      ["whatsapp", "viewWhatsAppSidebar", "web.whatsapp.com"],
+      ["instagram", "viewInstagramSidebar", "www.instagram.com"],
+      ["tiktok", "viewTikTokSidebar", "www.tiktok.com"],
+    ]) {
+      this.registerPrefSidebar(`marble.webpanels.${site}.enabled`, commandID, {
+        name: site,
+        elementId: `sidebar-switcher-${site}`,
+        url: `chrome://browser/content/sidebar/web-panel.html?site=${site}`,
+        menuId: `menu_${site}Sidebar`,
+        menuL10nId: `menu-view-${site}`,
+        revampL10nId: `menu-view-${site}`,
+        // The site's own favicon: saved copy if we have one, otherwise
+        // fetched from DuckDuckGo's icon service (and saved, see below).
+        iconUrl:
+          Services.prefs.getStringPref(`marble.webpanels.${site}.icon`, "") ||
+          this._webPanelIconSources(host)[0],
+        webPanel: site,
+      });
+      this._cacheWebPanelIcon(site, commandID, host);
+    }
 
     if (this.sidebarRevampEnabled) {
       this.registerPrefSidebar(
@@ -461,6 +487,8 @@ var SidebarController = {
       "sidebar-reverse-position"
     );
     this._switcherPanel = document.getElementById("sidebarMenu-popup");
+    this._initClickOutsideToHide();
+    this._preloadWebPanels();
     this._switcherTarget = document.getElementById("sidebar-switcher-target");
     this._switcherArrow = document.getElementById("sidebar-switcher-arrow");
     this._hoverBlockerCount = 0;
@@ -1039,7 +1067,8 @@ var SidebarController = {
       let commandID = this._state.command;
 
       if (wasOpen && commandID && this.sidebars.has(commandID)) {
-        this.showInitially(commandID);
+        // Marble: don't re-open panels on startup.
+        this._box.removeAttribute("checked");
       } else {
         this._box.removeAttribute("checked");
         // Update the state, because the element it
@@ -1092,6 +1121,182 @@ var SidebarController = {
    */
   get isOpen() {
     return this._box ? !this._box.hidden : false;
+  },
+
+  /**
+   * Marble: where to get a web panel's icon from, best first.
+   */
+  _webPanelIconSources(host) {
+    // Also try the main domain (web.whatsapp.com -> whatsapp.com), since icon
+    // services often only know the main site.
+    const parts = host.split(".");
+    const mainDomain = parts.length > 2 ? parts.slice(-2).join(".") : host;
+    const sources = [
+      `https://${host}/favicon.ico`,
+      `https://${host}/favicon-64x64.ico`,
+    ];
+    for (const domain of new Set([host, mainDomain, `www.${mainDomain}`])) {
+      sources.push(
+        `https://icons.duckduckgo.com/ip3/${domain}.ico`,
+        `https://www.google.com/s2/favicons?domain=${domain}&sz=64`
+      );
+    }
+    return sources;
+  },
+
+  /**
+   * Marble: keep a saved copy of a web panel's icon (as a data: URL in a pref)
+   * so it shows right away on every start, even before/without network.
+   */
+  async _cacheWebPanelIcon(site, commandID, host) {
+    const pref = `marble.webpanels.${site}.icon`;
+    if (Services.prefs.getStringPref(pref, "")) {
+      return;
+    }
+    try {
+      // Try each icon source until one returns an actual image.
+      let blob = null;
+      const tried = [];
+      for (const url of this._webPanelIconSources(host)) {
+        try {
+          const response = await fetch(url);
+          const candidate = response.ok ? await response.blob() : null;
+          tried.push(`${url} -> ${response.status} ${candidate?.type ?? ""}`);
+          if (candidate?.size && candidate.type.startsWith("image/")) {
+            blob = candidate;
+            break;
+          }
+        } catch (ex) {
+          tried.push(`${url} -> ${ex}`);
+        }
+      }
+      if (!blob) {
+        // Left in about:config to help find out why no icon could be found.
+        Services.prefs.setStringPref(`${pref}.failed`, tried.join(" | "));
+        return;
+      }
+      const dataUrl = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(reader.error);
+        reader.readAsDataURL(blob);
+      });
+      Services.prefs.setStringPref(pref, dataUrl);
+      const sidebar = this._sidebars?.get(commandID);
+      if (sidebar) {
+        sidebar.iconUrl = dataUrl;
+      }
+      const tool = this._toolsAndExtensions?.get(commandID);
+      if (tool) {
+        tool.iconUrl = dataUrl;
+      }
+      this.sidebarMain?.requestUpdate?.();
+    } catch (ex) {
+      console.error(`Could not save the ${site} web panel icon`, ex);
+    }
+  },
+
+  /**
+   * Marble: a few seconds after startup, load the web panels that want to
+   * run in the background (WhatsApp, for its new-message dot) without
+   * showing them. See preloadWebPanels() in web-panel.js.
+   */
+  _preloadWebPanels() {
+    setTimeout(() => {
+      const webPanelsBrowser = document.getElementById("sidebar-webpanels");
+      if (
+        !webPanelsBrowser ||
+        !this.sidebarRevampEnabled ||
+        PrivateBrowsingUtils.isWindowPrivate(window)
+      ) {
+        return;
+      }
+      // Only one window runs them in the background: sites like WhatsApp
+      // Web allow a single open copy, and a second one gets stuck loading.
+      for (const win of Services.wm.getEnumerator("navigator:browser")) {
+        if (
+          win != window &&
+          win.document
+            .getElementById("sidebar-webpanels")
+            ?.getAttribute("src")
+        ) {
+          return;
+        }
+      }
+      const keys = [...this.sidebars.values()]
+        .filter(sidebar => sidebar.webPanel && sidebar.visible)
+        .map(sidebar => sidebar.webPanel);
+      if (!keys.length) {
+        return;
+      }
+      const preload = () =>
+        webPanelsBrowser.contentWindow?.preloadWebPanels?.(keys);
+      if (webPanelsBrowser.contentWindow?.preloadWebPanels) {
+        preload();
+        return;
+      }
+      webPanelsBrowser.addEventListener("load", () => setTimeout(preload, 0), {
+        capture: true,
+        once: true,
+      });
+      webPanelsBrowser.setAttribute(
+        "src",
+        "chrome://browser/content/sidebar/web-panel.html"
+      );
+    }, 3000);
+  },
+
+  /**
+   * Marble: clicking anywhere outside the open sidebar panel hides it, the
+   * same as its close (X) button. Web panels keep running in the background.
+   * Turn off with the marble.sidebar.hideOnClickOutside pref.
+   */
+  _initClickOutsideToHide() {
+    const insideSidebar = node => {
+      // Events from pages inside the sidebar (history, the web panels page,
+      // ...) bubble up to this window with targets from those pages. Only
+      // targets in this document can be "outside", so ignore everything else.
+      if (!node || node.ownerDocument != document) {
+        return true;
+      }
+      return !!node.closest?.(
+        "#sidebar-box, #sidebar-container, #sidebar-splitter, #sidebar-launcher-splitter, menupopup, panel"
+      );
+    };
+    const hideIfOpen = () => {
+      if (
+        this.isOpen &&
+        Services.prefs.getBoolPref("marble.sidebar.hideOnClickOutside", true)
+      ) {
+        this.hide();
+      }
+    };
+    // Clicks on the browser's own UI (toolbars, tabs, ...).
+    window.addEventListener(
+      "mousedown",
+      event => {
+        if (event.button == 0 && !insideSidebar(event.target)) {
+          hideIfOpen();
+        }
+      },
+      { capture: true }
+    );
+    // Clicks inside a web page don't reach this window as mouse events, but
+    // the page's <browser> gets focused.
+    window.addEventListener(
+      "focus",
+      event => {
+        const target = event.target;
+        if (
+          target?.ownerDocument == document &&
+          target.localName == "browser" &&
+          gBrowser.tabpanels?.contains(target)
+        ) {
+          hideIfOpen();
+        }
+      },
+      { capture: true }
+    );
   },
 
   /**
@@ -1611,6 +1816,12 @@ var SidebarController = {
    * @param {string} view
    */
   dismissSidebarBadge(view) {
+    // Marble: a web panel's dot means "unread messages" and only goes away
+    // once they are read (see watchUnread in web-panel.js), not when the
+    // panel is opened.
+    if (this.sidebars.get(view)?.webPanel) {
+      return;
+    }
     const prefName = `sidebar.notification.badge.${toolsNameMap[view]}`;
     if (Services.prefs.getBoolPref(prefName, false)) {
       Services.prefs.setBoolPref(prefName, false);
@@ -2167,6 +2378,40 @@ var SidebarController = {
         this.title = title;
         // Keep the title element in the switcher in sync with any l10n changes.
         this.observeTitleChanges(sourceL10nEl);
+      }
+
+      // Marble: web panels live in their own browser that is never unloaded,
+      // so closing a panel only hides it and chats/videos keep running.
+      const webPanelsBrowser = document.getElementById("sidebar-webpanels");
+      const { webPanel } = this.sidebars.get(commandID);
+      if (webPanelsBrowser) {
+        webPanelsBrowser.hidden = !webPanel;
+        this.browser.hidden = !!webPanel;
+      }
+      if (webPanel && webPanelsBrowser) {
+        if (this.browser.getAttribute("src") != "about:blank") {
+          // Unload whatever regular panel was open before.
+          this.browser.setAttribute("src", "about:blank");
+        }
+        const showSite = () => {
+          webPanelsBrowser.contentWindow.showWebPanel(webPanel);
+          resolve();
+          this._fireShowEvent();
+        };
+        if (webPanelsBrowser.contentWindow?.showWebPanel) {
+          showSite();
+        } else {
+          webPanelsBrowser.addEventListener(
+            "load",
+            () => setTimeout(showSite, 0),
+            { capture: true, once: true }
+          );
+          webPanelsBrowser.setAttribute(
+            "src",
+            "chrome://browser/content/sidebar/web-panel.html"
+          );
+        }
+        return;
       }
 
       this.browser.setAttribute("src", url); // kick off async load

@@ -1,0 +1,52 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this file,
+   - You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" role="document">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src resource: chrome:; object-src 'none'; img-src data: chrome:;"
+    />
+    <meta name="color-scheme" content="light dark" />
+    <title>Web Panel</title>
+    <link rel="localization" href="browser/sidebar.ftl" />
+    <link rel="stylesheet" href="chrome://global/skin/in-content/common.css" />
+    <link
+      rel="stylesheet"
+      href="chrome://browser/content/sidebar/web-panel.css"
+    />
+    <script src="chrome://browser/content/sidebar/web-panel.js"></script>
+  </head>
+  <body>
+    <div id="toolbar">
+      <moz-button
+        id="web-panel-back"
+        data-l10n-id="sidebar-web-panel-back"
+        iconsrc="chrome://browser/skin/back.svg"
+        type="icon ghost"
+      ></moz-button>
+      <moz-button
+        id="web-panel-reload"
+        data-l10n-id="sidebar-web-panel-reload"
+        iconsrc="chrome://global/skin/icons/reload.svg"
+        type="icon ghost"
+      ></moz-button>
+      <span id="web-panel-spacer"></span>
+      <moz-button
+        id="web-panel-open-tab"
+        data-l10n-id="sidebar-web-panel-open-in-tab"
+        iconsrc="chrome://global/skin/icons/open-in-new.svg"
+        type="icon ghost"
+      ></moz-button>
+      <moz-button
+        id="web-panel-close"
+        data-l10n-id="sidebar-web-panel-close"
+        iconsrc="chrome://global/skin/icons/close.svg"
+        type="icon ghost"
+      ></moz-button>
+    </div>
+    <div id="browser-container"></div>
+  </body>
+</html>

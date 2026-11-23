@@ -32,3 +32,6 @@ browser.jar:
     content/browser/sidebar/sidebar-tab-list.mjs
     content/browser/sidebar/sidebar-tab-row.css
     content/browser/sidebar/sidebar.css
+    content/browser/sidebar/web-panel.css
+    content/browser/sidebar/web-panel.html
+    content/browser/sidebar/web-panel.js

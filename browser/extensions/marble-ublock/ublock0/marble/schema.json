@@ -1,0 +1,42 @@
+[
+  {
+    "namespace": "marbleShields",
+    "description": "Marble Shields: Firefox-backed per-site switches for the Marble shields panel.",
+    "functions": [
+      {
+        "name": "getSiteSettings",
+        "type": "function",
+        "async": true,
+        "description": "Returns {fingerprinting, forgetMe} for a hostname.",
+        "parameters": [{ "name": "host", "type": "string" }]
+      },
+      {
+        "name": "setFingerprinting",
+        "type": "function",
+        "async": true,
+        "description": "Turns fingerprinting protection on or off for a hostname's site.",
+        "parameters": [
+          { "name": "host", "type": "string" },
+          { "name": "on", "type": "boolean" }
+        ]
+      },
+      {
+        "name": "setForgetMe",
+        "type": "function",
+        "async": true,
+        "description": "Clear the site's data when its last tab is closed.",
+        "parameters": [
+          { "name": "host", "type": "string" },
+          { "name": "on", "type": "boolean" }
+        ]
+      },
+      {
+        "name": "closePanel",
+        "type": "function",
+        "async": true,
+        "description": "Closes the shields panel in the current browser window.",
+        "parameters": []
+      }
+    ]
+  }
+]

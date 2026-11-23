@@ -9,6 +9,7 @@ DIRS += [
     "pictureinpicture",
     "search-detection",
     "newtab",
+    "marble-ublock",
 ]
 
 JAR_MANIFESTS += ["jar.mn"]

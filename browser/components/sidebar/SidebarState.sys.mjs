@@ -297,6 +297,9 @@ export class SidebarState {
     if (!this.command) {
       props.panelOpen = false;
     }
+    // Marble: windows always start with every sidebar panel closed; only the
+    // icon launcher is shown. Panels open when their icon is clicked.
+    props.panelOpen = false;
 
     this.panelOpen = !!props.panelOpen;
     if (hasExplicitHiddenLauncher) {
@@ -437,7 +440,8 @@ export class SidebarState {
     }
 
     // default/fallback value for vertical tabs is to always be visible initially
-    if (lazy.verticalTabsEnabled) {
+    // Marble: with "always-show" the launcher is visible from the first run too.
+    if (lazy.verticalTabsEnabled || this.revampVisibility == "always-show") {
       return true;
     }
     return DEFAULT_LAUNCHER_VISIBLE;

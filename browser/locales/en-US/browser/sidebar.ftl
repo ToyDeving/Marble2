@@ -8,6 +8,23 @@ menu-view-genai-chat =
 menu-view-contextual-password-manager =
   .label = Passwords
 
+## Marble web panels. Site names are brand names and are not translated.
+
+menu-view-whatsapp =
+  .label = WhatsApp
+menu-view-instagram =
+  .label = Instagram
+menu-view-tiktok =
+  .label = TikTok
+sidebar-web-panel-back =
+  .title = Back
+sidebar-web-panel-reload =
+  .title = Reload
+sidebar-web-panel-open-in-tab =
+  .title = Open in a new tab
+sidebar-web-panel-close =
+  .title = Close
+
 # Label for the Open Tabs entry in the View > Sidebars menu bar menu.
 # "Open Tabs" is a noun phrase referring to the tabs currently open in
 # the browser, not an instruction to open tabs.

@@ -16,6 +16,7 @@ MOZ_SRC_FILES += [
     "SidebarManager.sys.mjs",
     "SidebarState.sys.mjs",
     "SidebarTreeView.sys.mjs",
+    "WebPanelUnread.sys.mjs",
 ]
 
 TESTING_JS_MODULES += [

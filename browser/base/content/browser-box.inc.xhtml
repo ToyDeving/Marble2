@@ -22,6 +22,8 @@
     </box>
     <stack class="sidebar-browser-stack">
       <browser id="sidebar" autoscroll="false" disablehistory="true" disablefullscreen="true" tooltip="aHTMLTooltip"/>
+      <!-- Marble: web panels (WhatsApp, Instagram, TikTok) live here and are never unloaded. -->
+      <browser id="sidebar-webpanels" autoscroll="false" disablehistory="true" disablefullscreen="true" tooltip="aHTMLTooltip" hidden="true"/>
     </stack>
   </vbox>
   <splitter id="sidebar-splitter" class="chromeclass-extrachrome sidebar-splitter" resizebefore="sibling" resizeafter="none" hidden="true"/>

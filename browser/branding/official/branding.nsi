@@ -7,10 +7,10 @@
 # BrandFullNameInternal is used for some registry and file system values
 # instead of BrandFullName and typically should not be modified.
 !define BrandFullNameInternal "Marble"
-!define BrandFullName         "Marble"
+!define BrandFullName         "Toyser"
 !define CompanyName           "Biidama"
-!define URLInfoAbout          "https://github.com/NetworkNeighborhood/Marble/"
-!define HelpLink              "https://github.com/NetworkNeighborhood/Marble/"
+!define URLInfoAbout          "https://github.com/ToyDeving/Marble2/"
+!define HelpLink              "https://github.com/ToyDeving/Marble2/"
 
 !define URLStubDownloadX86 "https://download.mozilla.org/?os=win&lang=${AB_CD}&product=firefox-latest"
 !define URLStubDownloadAMD64 "https://download.mozilla.org/?os=win64&lang=${AB_CD}&product=firefox-latest"

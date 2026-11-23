@@ -81,7 +81,8 @@
 
   > moz-button {
     --button-icon-fill: var(--toolbarbutton-icon-fill);
-    --button-attention-dot-color: light-dark(#53b93a, #73d25d);
+    /* Marble: red "new messages" dot (e.g. WhatsApp in the sidebar). */
+    --button-attention-dot-color: light-dark(#e22850, #ff4f5e);
   }
 
   > moz-button:not(.tools-overflow) {

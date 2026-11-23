@@ -15,7 +15,8 @@ const PINNED_PROMO_PREF = "sidebar.verticalTabs.dragToPinPromo.dismissed";
 // New panels that are ready to be introduced to new sidebar users should be added to this list;
 // ensure your feature flag is enabled at the same time you do this and that its the same value as
 // what you added to .
-const DEFAULT_LAUNCHER_TOOLS = "aichat,syncedtabs,history,bookmarks,opentabs";
+const DEFAULT_LAUNCHER_TOOLS =
+  "aichat,syncedtabs,history,bookmarks,opentabs,whatsapp,instagram,tiktok";
 const lazy = {};
 ChromeUtils.defineESModuleGetters(lazy, {
   BrowserWindowTracker: "resource:///modules/BrowserWindowTracker.sys.mjs",
@@ -55,10 +56,9 @@ XPCOMUtils.defineLazyPreferenceGetter(
     if (!newVal) {
       // Disable vertical tabs if revamped sidebar is turned off
       Services.prefs.setBoolPref("sidebar.verticalTabs", false);
-    } else if (newVal && !lazy.verticalTabsEnabled) {
-      // horizontal tabs with sidebar.revamp must have visibility of "hide-sidebar"
-      Services.prefs.setStringPref(VISIBILITY_SETTING_PREF, "hide-sidebar");
     }
+    // Marble: keep the launcher always visible with horizontal tabs too, so
+    // web panels (WhatsApp, Instagram, TikTok...) are always one click away.
   }
 );
 
@@ -231,7 +231,8 @@ class SidebarManager extends EventTarget {
       if (currentVisibility == "expand-on-hover") {
         this.#savedVisibility = currentVisibility;
       }
-      Services.prefs.setStringPref(VISIBILITY_SETTING_PREF, "hide-sidebar");
+      // Marble: "always-show" instead of "hide-sidebar" (see above).
+      Services.prefs.setStringPref(VISIBILITY_SETTING_PREF, "always-show");
     } else if (resetVisibility) {
       if (this.#savedVisibility) {
         Services.prefs.setStringPref(

@@ -389,6 +389,7 @@ const CONFIG_PANES = Object.freeze({
       "securityPrivacyStatus",
       "securityPrivacyWarnings",
       "etpStatus",
+      "marbleShields",
       "ipprotection",
       "cookiesAndSiteData2",
       "history2",

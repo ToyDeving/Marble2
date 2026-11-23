@@ -1,0 +1,25 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+#marble-shields-button {
+  list-style-image: url("chrome://browser/skin/tracking-protection.svg");
+}
+
+#marble-shields-button[shields-off] {
+  list-style-image: url("chrome://browser/skin/tracking-protection-disabled.svg");
+}
+
+/* uBlock Origin's own button: Marble shows it through the shields button. */
+#ublock0_raymondhill_net-browser-action {
+  display: none !important;
+}
+
+#marble-shields-panel::part(content) {
+  padding: 0;
+}
+
+#marble-shields-browser {
+  width: 340px;
+  min-height: 120px;
+}

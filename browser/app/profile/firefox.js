@@ -2214,13 +2214,12 @@ pref("pdfjs.previousHandler.alwaysAskBeforeHandling", false);
 pref("pdfjs.handleOctetStream", true);
 
 // Is the sidebar positioned ahead of the content browser
-pref("sidebar.position_start", true);
-#ifdef NIGHTLY_BUILD
+// Marble: sidebar on the right side by default.
+pref("sidebar.position_start", false);
+// Marble: use the icon launcher sidebar so web panels are always one click away.
 pref("sidebar.revamp", true);
-#else
-pref("sidebar.revamp", false);
-#endif
-pref("sidebar.revamp.round-content-area", true);
+// Marble: square content area, like Photon.
+pref("sidebar.revamp.round-content-area", false);
 pref("sidebar.animation.enabled", true);
 pref("sidebar.animation.duration-ms", 200);
 pref("sidebar.animation.expand-on-hover.duration-ms", 400);
@@ -2231,6 +2230,37 @@ pref("sidebar.animation.expand-on-hover.delay-duration-ms", 200);
 // you can introduce a new tool to the sidebar launcher.
 pref("sidebar.main.tools", "");
 pref("sidebar.installed.extensions", "");
+// Marble web panels (websites inside the sidebar).
+pref("marble.webpanels.whatsapp.enabled", true);
+pref("marble.webpanels.instagram.enabled", true);
+pref("marble.webpanels.tiktok.enabled", true);
+pref("sidebar.newTool.migration.whatsapp", "{}");
+pref("sidebar.newTool.migration.instagram", "{}");
+pref("sidebar.newTool.migration.tiktok", "{}");
+// Toyser: modern menus (rounded, follow dark mode) instead of the classic
+// native Windows ones. toolkit/themes/windows/global/{menu,popup}.css
+pref("toyser.menus.modern", true);
+// Toyser version and update check (browser/components/toyser-update).
+// Bump toyser.version for every release; see docs/toyser-releases.md.
+pref("toyser.version", "1.0.0");
+pref("toyser.update.enabled", true);
+pref("toyser.update.repository", "ToyDeving/Marble2");
+// Marble Shields: built-in ad and tracker blocker (uBlock Origin engine,
+// see browser/extensions/marble-ublock). false = off everywhere.
+pref("marble.shields.enabled", true);
+// Firefox's fingerprinting protection, switchable per site from the shields
+// panel (privacy.fingerprintingProtection.granularOverrides).
+pref("privacy.fingerprintingProtection", true);
+// Marble: clicking outside the open sidebar panel hides it.
+pref("marble.sidebar.hideOnClickOutside", true);
+// Marble: modern, thin Windows 11 style scrollbars (wider on hover) instead
+// of the classic native ones, on web pages and in the browser UI.
+pref("widget.native-controls.scrollbar-style", 1);
+pref("widget.non-native-theme.scrollbar.style", 5);
+// Marble: modern (Windows 10+) window style: solid titlebar with drawn
+// minimize/maximize/close buttons. The Aero glass titlebar doesn't get along
+// with the new sidebar (the part above the page turns black).
+pref("widget.windows-style.modern", true);
 pref("sidebar.verticalTabs", false);
 pref("sidebar.verticalTabs.dragToPinPromo.dismissed", false);
 pref("sidebar.visibility", "always-show");

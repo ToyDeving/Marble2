@@ -1,0 +1,72 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+:root {
+  --bg: #fbfbfe;
+  --box: #ececf1;
+  --text: #15141a;
+  --muted: #5b5b66;
+  --line: #d7d7db;
+  --accent: #6f5af5;
+  --off: #b9b9c4;
+  font: 14px system-ui, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1f1e25;
+    --box: #2b2a33;
+    --text: #fbfbfe;
+    --muted: #b6b6c0;
+    --line: #3a3944;
+    --accent: #a99cff;
+    --off: #52515e;
+  }
+}
+body { margin: 0; width: 340px; background: var(--bg); color: var(--text); }
+main { padding: 16px; }
+
+#site { display: flex; align-items: center; gap: 12px; }
+#site-text { flex: 1; min-width: 0; }
+#site-name { font-size: 17px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#site-status { color: var(--muted); margin-top: 2px; }
+#site-status b { color: var(--text); }
+
+#count-box {
+  display: flex; align-items: center; gap: 12px;
+  margin: 14px 0; padding: 12px 14px; border-radius: 10px; background: var(--box);
+}
+#count { font-size: 24px; font-weight: 700; min-width: 2ch; }
+#count-label { color: var(--muted); }
+body.off #count-box { opacity: .5; }
+
+details { border-top: 1px solid var(--line); padding-top: 8px; }
+summary { cursor: pointer; padding: 6px 0; color: var(--accent); font-weight: 600; }
+.row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 0; }
+body.off .row { opacity: .5; pointer-events: none; }
+
+footer { display: flex; gap: 8px; margin-top: 12px; border-top: 1px solid var(--line); padding-top: 12px; }
+footer button {
+  flex: 1; padding: 9px 6px; border-radius: 999px; border: 1px solid var(--line);
+  background: transparent; color: var(--text); font: inherit; font-weight: 600; cursor: pointer;
+}
+footer button:hover { background: var(--box); }
+
+#unavailable p { margin: 0; color: var(--muted); text-align: center; }
+
+/* Switches */
+.switch { position: relative; display: inline-block; width: 40px; height: 22px; flex: none; }
+.switch.big { width: 64px; height: 34px; }
+.switch input { opacity: 0; width: 0; height: 0; position: absolute; }
+.switch span {
+  position: absolute; inset: 0; border-radius: 999px; background: var(--off);
+  transition: background .15s; cursor: pointer;
+}
+.switch span::before {
+  content: ""; position: absolute; left: 3px; top: 3px; bottom: 3px; aspect-ratio: 1;
+  border-radius: 50%; background: #fff; transition: transform .15s;
+}
+.switch input:checked + span { background: var(--accent); }
+.switch input:checked + span::before { transform: translateX(18px); }
+.switch.big input:checked + span::before { transform: translateX(30px); }
+.switch input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }

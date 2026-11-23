@@ -98,3 +98,28 @@ menulist > menupopup {
     --panel-border-color: ThreeDShadow;
   }
 }
+
+/* ::::: Toyser: modern menus (toyser.menus.modern) ::::: */
+/* Rounded, padded menus that follow the browser's light/dark mode, instead of
+   the classic native (always light) Windows menus. Item styles: menu.css. */
+
+@media -moz-pref("toyser.menus.modern") {
+  menupopup {
+    appearance: none;
+    color-scheme: light dark !important;
+    background-color: transparent;
+    border: none;
+    --panel-background: light-dark(#f9f9fb, #2b2a33);
+    --panel-color: light-dark(#15141a, #fbfbfe);
+    --panel-border-color: light-dark(#cfcfd8, #4a4a55);
+    --panel-border-radius: 8px;
+    --panel-padding: 4px;
+    --panel-shadow-margin: 6px;
+    --panel-shadow: 0 2px 10px light-dark(rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0.5));
+    --nested-margin: -6px;
+  }
+
+  menulist > menupopup {
+    --panel-border-radius: 6px;
+  }
+}

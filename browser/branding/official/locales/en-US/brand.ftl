@@ -16,12 +16,12 @@
 ## For further details, consult:
 ## https://mozilla-l10n.github.io/styleguides/mozilla_general/#brands-copyright-and-trademark
 
--brand-shorter-name = Marble
--brand-short-name = Marble
--brand-shortcut-name = Marble
--brand-full-name = Marble
+-brand-shorter-name = Toyser
+-brand-short-name = Toyser
+-brand-shortcut-name = Toyser
+-brand-full-name = Toyser
 # This brand name can be used in messages where the product name needs to
 # remain unchanged across different versions (Nightly, Beta, etc.).
--brand-product-name = Marble
+-brand-product-name = Toyser
 -vendor-short-name = Biidama
 trademarkInfo = { " " }

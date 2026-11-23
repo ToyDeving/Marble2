@@ -251,3 +251,86 @@ menulist > menupopup > menuseparator {
   border-top: 1px solid #000000;
   border-bottom: none;
 }
+
+/* ::::: Toyser: modern menus (toyser.menus.modern) ::::: */
+/* See popup.css for the popup itself. Only menus inside popups change; the
+   menu bar keeps its native look. */
+
+@media -moz-pref("toyser.menus.modern") {
+  menupopup > :is(menu, menuitem, menucaption),
+  menulist > menupopup > :is(menu, menuitem, menucaption) {
+    appearance: none !important;
+    color: inherit;
+    border: none;
+    border-radius: 4px;
+    min-height: 28px;
+    padding-block: 0;
+    padding-inline: 4px 8px;
+  }
+
+  menupopup > :is(menu, menuitem)[_moz-menuactive="true"]:not([disabled="true"]),
+  menulist > menupopup > :is(menu, menuitem)[_moz-menuactive="true"] {
+    background-color: light-dark(rgba(21, 20, 26, 0.08), rgba(251, 251, 254, 0.12));
+    color: inherit;
+  }
+
+  menupopup > :is(menu, menuitem)[disabled="true"] {
+    color: light-dark(#8f8f9d, #8f8f9d);
+    text-shadow: none;
+  }
+
+  menupopup .menu-text {
+    appearance: none;
+  }
+
+  menupopup :is(.menu-accel, .menu-iconic-accel) {
+    opacity: 0.7;
+  }
+
+  /* Icons, check marks and radio dots, drawn by us instead of the system. */
+  menupopup .menu-iconic-left,
+  menupopup :is(.menu-iconic, .menuitem-iconic) > .menu-iconic-left {
+    appearance: none !important;
+    padding-top: 0;
+    width: 1.6em;
+    justify-content: center;
+    align-items: center;
+  }
+
+  menupopup > menuitem:is([type="checkbox"], [type="radio"]) > .menu-iconic-left {
+    appearance: none !important;
+  }
+
+  menupopup > menuitem[type="checkbox"][checked="true"] > .menu-iconic-left {
+    background: url("chrome://global/skin/icons/check.svg") center / 12px no-repeat;
+    -moz-context-properties: fill;
+    fill: currentColor;
+  }
+
+  menupopup > menuitem[type="radio"][checked="true"] > .menu-iconic-left {
+    background: radial-gradient(circle, currentColor 3px, transparent 3.5px);
+  }
+
+  menupopup .menu-right {
+    appearance: none !important;
+    list-style-image: url("chrome://global/skin/icons/arrow-right-12.svg");
+    -moz-context-properties: fill;
+    fill: currentColor;
+    width: 12px;
+    height: 12px;
+    margin-inline: 8px 0;
+    padding: 0;
+  }
+
+  menupopup .menu-right:-moz-locale-dir(rtl) {
+    transform: scaleX(-1);
+  }
+
+  menupopup > menuseparator {
+    appearance: none !important;
+    padding: 0;
+    border: none;
+    border-top: 1px solid light-dark(#e0e0e6, #4a4a55);
+    margin: 4px 6px;
+  }
+}

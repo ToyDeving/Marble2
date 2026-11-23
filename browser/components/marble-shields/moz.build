@@ -1,0 +1,12 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+# Marble Shields: the toolbar button and panel for the built-in blocker.
+# See docs/superpowers/specs/2026-11-23-marble-shields-design.md
+
+MOZ_SRC_FILES += [
+    "MarbleShields.sys.mjs",
+]
+
+JAR_MANIFESTS += ["jar.mn"]

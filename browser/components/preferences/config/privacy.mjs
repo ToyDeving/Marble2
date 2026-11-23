@@ -311,6 +311,9 @@ const SECURITY_PRIVACY_STATUS_CARD_ENABLED =
   );
 
 Preferences.addAll([
+  // Marble Shields (ad and tracker blocker)
+  { id: "marble.shields.enabled", type: "bool" },
+
   // Content blocking / Tracking Protection
   { id: "privacy.trackingprotection.enabled", type: "bool" },
   { id: "privacy.trackingprotection.pbmode.enabled", type: "bool" },
@@ -533,7 +536,23 @@ if (SECURITY_PRIVACY_STATUS_CARD_ENABLED) {
   ]);
 }
 
+// Marble Shields: built-in ad and tracker blocker on/off.
+Preferences.addSetting({
+  id: "marbleShieldsEnabled",
+  pref: "marble.shields.enabled",
+});
+
 SettingGroupManager.registerGroups({
+  marbleShields: {
+    l10nId: "marble-shields-group",
+    headingLevel: 2,
+    items: [
+      {
+        id: "marbleShieldsEnabled",
+        l10nId: "marble-shields-enabled",
+      },
+    ],
+  },
   httpsOnly: {
     l10nId: "httpsonly-group",
     supportPage: "https-only-prefs",

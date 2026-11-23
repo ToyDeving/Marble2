@@ -1,0 +1,15 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+# Marble Shields: uBlock Origin (https://github.com/gorhill/uBlock, GPLv3,
+# see ublock0/LICENSE.txt) shipped as a hidden built-in system add-on, plus
+# Marble's own panel and experiment API in ublock0/marble/.
+#
+# ublock0/ is the unpacked release from addons.mozilla.org (without its
+# META-INF signature). To update uBlock: replace ublock0/ with the new
+# release, keeping ublock0/marble/ and the "experiment_apis" key that
+# Marble adds to ublock0/manifest.json.
+# See docs/superpowers/specs/2026-11-23-marble-shields-design.md
+
+JAR_MANIFESTS += ["jar.mn"]

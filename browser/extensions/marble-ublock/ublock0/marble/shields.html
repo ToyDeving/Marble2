@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this file,
+   - You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="light dark">
+<title>Marble Shields</title>
+<link rel="stylesheet" href="shields.css">
+</head>
+<body>
+<main id="panel" hidden>
+  <header id="site">
+    <div id="site-text">
+      <div id="site-name"></div>
+      <div id="site-status"></div>
+    </div>
+    <label class="switch big"><input type="checkbox" id="site-switch"><span></span></label>
+  </header>
+
+  <section id="count-box">
+    <span id="count">0</span>
+    <span id="count-label"></span>
+  </section>
+
+  <details id="advanced" open>
+    <summary data-i18n="marbleShields_advanced"></summary>
+    <div class="row">
+      <span data-i18n="marbleShields_blockScripts"></span>
+      <label class="switch"><input type="checkbox" id="no-scripting"><span></span></label>
+    </div>
+    <div class="row">
+      <span data-i18n="marbleShields_blockPopups"></span>
+      <label class="switch"><input type="checkbox" id="no-popups"><span></span></label>
+    </div>
+    <div class="row">
+      <span data-i18n="marbleShields_blockFingerprinting"></span>
+      <label class="switch"><input type="checkbox" id="fingerprinting"><span></span></label>
+    </div>
+    <div class="row">
+      <span data-i18n="marbleShields_forgetMe"></span>
+      <label class="switch"><input type="checkbox" id="forget-me"><span></span></label>
+    </div>
+  </details>
+
+  <footer>
+    <button id="filter-lists" data-i18n="marbleShields_filterLists"></button>
+    <button id="global-settings" data-i18n="marbleShields_globalSettings"></button>
+  </footer>
+</main>
+
+<main id="unavailable" hidden>
+  <p data-i18n="marbleShields_unavailable"></p>
+</main>
+
+<script src="../js/vapi.js"></script>
+<script src="../js/vapi-common.js"></script>
+<script src="../js/vapi-client.js"></script>
+<script src="shields.js"></script>
+</body>
+</html>

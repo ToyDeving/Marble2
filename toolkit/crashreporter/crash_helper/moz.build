@@ -29,6 +29,8 @@ else:
             "bcrypt",
             "dbghelp",
             "ntdll",
+            # Newer Rust versions use WaitOnAddress/WakeByAddress* from here.
+            "synchronization",
             "userenv",
             "ws2_32",
         ]

@@ -62,7 +62,8 @@
   flex: 1000 1000;
 }
 
-#sidebar {
+#sidebar,
+#sidebar-webpanels {
   flex: 1;
 
   @media -moz-pref("sidebar.revamp") {
@@ -448,7 +449,8 @@ sidebar-main,
     pref is set to "expand-on-hover" as opposed to when the "sidebar-expand-on-hover" attribute
     has been added to root. There are certain scenarios when that attribute is temporarily
     removed from root such as when toggling the sidebar to expand with the toolbar button. */
-  #sidebar {
+  #sidebar,
+  #sidebar-webpanels {
     box-shadow: none;
     margin-block-start: 1px;
     outline-offset: -0.1px;
@@ -462,7 +464,8 @@ sidebar-main,
     padding-block-end: 0;
   }
 
-  #sidebar {
+  #sidebar,
+  #sidebar-webpanels {
     border-radius: 0;
     box-shadow: none;
     outline: none;
