@@ -2240,6 +2240,16 @@ pref("sidebar.newTool.migration.tiktok", "{}");
 // Toyser: modern menus (rounded, follow dark mode) instead of the classic
 // native Windows ones. toolkit/themes/windows/global/{menu,popup}.css
 pref("toyser.menus.modern", true);
+// Toyser: no data collection. Turns off Firefox's data reporting
+// (telemetry, usage and health report uploads, studies) and the
+// "Toyser automatically sends some data to Biidama" bar.
+pref("datareporting.policy.dataSubmissionEnabled", false);
+pref("datareporting.policy.dataSubmissionPolicyBypassNotification", true);
+pref("datareporting.healthreport.uploadEnabled", false);
+pref("datareporting.usage.uploadEnabled", false);
+pref("toolkit.telemetry.enabled", false);
+pref("toolkit.telemetry.unified", false);
+pref("toolkit.telemetry.archive.enabled", false);
 // Toyser version and update check (browser/components/toyser-update).
 // Bump toyser.version for every release; see docs/toyser-releases.md.
 pref("toyser.version", "1.1.0");
