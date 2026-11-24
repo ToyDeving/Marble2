@@ -1813,3 +1813,94 @@ popupnotificationcontent {
     }
   }
 }
+
+/* Toyser: modern translations panel. */
+@media -moz-pref("toyser.menus.modern") {
+  .translations-panel {
+    --panel-border-radius: 12px;
+    --toyser-panel-accent: var(--color-accent-primary, AccentColor);
+    --toyser-panel-line: color-mix(in srgb, currentColor 14%, transparent);
+
+    &::part(content) {
+      border: 1px solid var(--toyser-panel-line);
+      box-shadow: 0 10px 32px rgba(0, 0, 0, 0.35);
+    }
+
+    .translations-panel-header {
+      padding: 14px 10px 4px 16px;
+      align-items: center;
+
+      h1 {
+        font-size: 1.1em;
+        font-weight: 600;
+        margin: 0;
+      }
+    }
+
+    .translations-panel-settings-gear-icon {
+      border-radius: 6px;
+      opacity: 0.7;
+
+      &:hover {
+        opacity: 1;
+        background-color: color-mix(in srgb, currentColor 12%, transparent);
+      }
+    }
+
+    .translations-panel-content {
+      padding: 4px 16px 8px;
+    }
+
+    #full-page-translations-panel-intro {
+      line-height: 1.5;
+      opacity: 0.8;
+      margin-block-end: 8px;
+    }
+
+    a[is="moz-support-link"] {
+      color: var(--toyser-panel-accent);
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    #full-page-translations-panel-lang-selection > label {
+      margin-block: 12px 6px;
+      font-size: 0.9em;
+      font-weight: 600;
+      opacity: 0.75;
+    }
+
+    menulist {
+      appearance: none;
+      min-height: 36px;
+      padding-inline: 12px 8px;
+      border: 1px solid var(--toyser-panel-line);
+      border-radius: 8px;
+      background-color: color-mix(in srgb, currentColor 6%, transparent);
+
+      &:hover {
+        background-color: color-mix(in srgb, currentColor 11%, transparent);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--toyser-panel-accent);
+        outline-offset: 1px;
+      }
+    }
+
+    .panel-footer {
+      margin: 12px 16px 16px;
+      gap: 8px;
+    }
+
+    .footer-button {
+      border-radius: 8px;
+      min-height: 34px;
+      padding-inline: 18px;
+      margin: 0;
+    }
+  }
+}
