@@ -24,81 +24,81 @@ urlbar-translations-button-translated =
   .tooltiptext = Page translated from { $fromLanguage } to { $toLanguage }
 
 urlbar-translations-button-loading =
-  .tooltiptext = Translation in progress
+  .tooltiptext = Tradução em andamento
 
 translations-panel-settings-button =
-  .aria-label = Manage translation settings
+  .aria-label = Configurações de tradução
 
 ## Options in the Firefox Translations settings.
 
 translations-panel-settings-manage-languages =
-  .label = Manage languages
+  .label = Gerenciar idiomas
 translations-panel-settings-about2 =
-  .label = About translations in { -brand-shorter-name }
+  .label = Sobre as traduções no { -brand-shorter-name }
 
 # Text displayed for the option to always translate a given language
 # Variables:
 #   $language (string) - The localized display name of the detected language
 translations-panel-settings-always-translate-language =
-  .label = Always translate { $language }
+  .label = Sempre traduzir { $language }
 translations-panel-settings-always-translate-unknown-language =
-  .label = Always translate this language
+  .label = Sempre traduzir este idioma
 translations-panel-settings-always-offer-translation =
-  .label = Always offer to translate
+  .label = Sempre oferecer tradução
 
 # Text displayed for the option to never translate a given language
 # Variables:
 #   $language (string) - The localized display name of the detected language
 translations-panel-settings-never-translate-language =
-  .label = Never translate { $language }
+  .label = Nunca traduzir { $language }
 translations-panel-settings-never-translate-unknown-language =
-  .label = Never translate this language
+  .label = Nunca traduzir este idioma
 
 # Text displayed for the option to never translate this website
 translations-panel-settings-never-translate-site =
-  .label = Never translate this site
+  .label = Nunca traduzir este site
 
 ## The translation panel appears from the url bar, and this view is the default
 ## translation view.
 
-translations-panel-header = Translate this page?
+translations-panel-header = Traduzir esta página?
 translations-panel-translate-button =
-  .label = Translate
+  .label = Traduzir
 translations-panel-translate-button-loading =
-  .label = Please wait…
+  .label = Aguarde…
 translations-panel-translate-cancel =
-  .label = Cancel
-translations-panel-learn-more-link = Learn more
+  .label = Cancelar
+translations-panel-learn-more-link = Saiba mais
 
-translations-panel-intro-header = Try private translations in { -brand-shorter-name }
-translations-panel-intro-description = For your privacy, translations never leave your device. New languages and improvements coming soon!
+translations-panel-intro-header = Experimente as traduções privadas do { -brand-shorter-name }
+translations-panel-intro-description = Pra proteger sua privacidade, as traduções nunca saem do seu computador. Novos idiomas e melhorias em breve!
 
-translations-panel-error-translating = There was a problem translating. Please try again.
-translations-panel-error-load-languages = Couldn’t load languages
-translations-panel-error-load-languages-hint = Check your internet connection and try again.
+translations-panel-error-translating = Houve um problema na tradução. Tente de novo.
+translations-panel-error-load-languages = Não foi possível carregar os idiomas
+translations-panel-error-load-languages-hint = Confira sua conexão com a internet e tente de novo.
 translations-panel-error-load-languages-hint-button =
-  .label = Try again
+  .label = Tentar de novo
 
-translations-panel-error-unsupported = Translation isn’t available for this page
+translations-panel-error-unsupported = A tradução não está disponível para esta página
 translations-panel-error-dismiss-button =
-  .label = Got it
+  .label = Entendi
 translations-panel-error-change-button =
-  .label = Change source language
+  .label = Mudar idioma de origem
 # If your language requires declining the language name, a possible solution
 # is to adapt the structure of the phrase, or use a support noun, e.g.
 # `Sorry, we don't support translations from this language yet: { $language }
 #
 # Variables:
 #   $language (string) - The language of the document.
-translations-panel-error-unsupported-hint-known-2 = Sorry, we don’t support translations from { $language } yet.
-translations-panel-error-unsupported-hint-unknown-2 = Sorry, we don’t support translations from this language yet.
+translations-panel-error-unsupported-hint-known-2 = Desculpe, ainda não traduzimos do { $language }.
+translations-panel-error-unsupported-hint-unknown-2 = Desculpe, ainda não traduzimos deste idioma.
 
 ## Each label is followed, on a new line, by a dropdown list of language names.
 ## If this structure is problematic for your locale, an alternative way is to
 ## translate them as `Source language:` and `Target language:`
 
-translations-panel-from-label = Translate from
-translations-panel-to-label = Translate to
+translations-panel-from-label = Traduzir de
+translations-panel-to-label = Traduzir para
 
 ## The translation panel appears from the url bar, and this view is the "restore" view
 ## that lets a user restore a page to the original language, or translate into another
@@ -111,11 +111,11 @@ translations-panel-to-label = Translate to
 # Variables:
 #   $fromLanguage (string) - The original language of the document.
 #   $toLanguage (string) - The target language of the translation.
-translations-panel-revisit-header = This page is translated from { $fromLanguage } to { $toLanguage }
+translations-panel-revisit-header = Esta página foi traduzida de { $fromLanguage } para { $toLanguage }
 translations-panel-choose-language =
-  .label = Choose a language
+  .label = Escolha um idioma
 translations-panel-restore-button =
-  .label = Show original
+  .label = Mostrar original
 
 ## Firefox Translations language management in about:preferences.
 

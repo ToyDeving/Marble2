@@ -6,10 +6,10 @@
 
 marble-shields-button =
     .label = Shields
-    .tooltiptext = Shields: block ads and trackers on this site
+    .tooltiptext = Shields: bloquear anúncios e rastreadores neste site
 
 marble-shields-group =
     .label = { -brand-short-name } Shields
-    .description = Blocks ads and trackers on every site. You can also turn protections off for a single site from the shield button next to the address bar.
+    .description = Bloqueia anúncios e rastreadores em todos os sites. Você também pode desligar as proteções de um site pelo botão de escudo ao lado da barra de endereço.
 marble-shields-enabled =
-    .label = Block ads and trackers
+    .label = Bloquear anúncios e rastreadores

@@ -1312,47 +1312,47 @@
     "description": "so we dont need to deal with comma for last entry"
   },
   "marbleShields_statusOn": {
-    "message": "Protections |on| for this site",
+    "message": "Proteções |ligadas| neste site",
     "description": "Marble Shields panel (marble/shields.html)"
   },
   "marbleShields_statusOff": {
-    "message": "Protections |off| for this site",
+    "message": "Proteções |desligadas| neste site",
     "description": "Marble Shields panel (marble/shields.html)"
   },
   "marbleShields_blockedCount": {
-    "message": "trackers, ads and other content blocked",
+    "message": "rastreadores, anúncios e outros itens bloqueados",
     "description": "Marble Shields panel (marble/shields.html)"
   },
   "marbleShields_advanced": {
-    "message": "Advanced options",
+    "message": "Opções avançadas",
     "description": "Marble Shields panel (marble/shields.html)"
   },
   "marbleShields_blockScripts": {
-    "message": "Block scripts",
+    "message": "Bloquear scripts",
     "description": "Marble Shields panel (marble/shields.html)"
   },
   "marbleShields_blockPopups": {
-    "message": "Block pop-ups",
+    "message": "Bloquear pop-ups",
     "description": "Marble Shields panel (marble/shields.html)"
   },
   "marbleShields_blockFingerprinting": {
-    "message": "Block fingerprinting",
+    "message": "Bloquear fingerprinting",
     "description": "Marble Shields panel (marble/shields.html)"
   },
   "marbleShields_forgetMe": {
-    "message": "Forget me when I close this site",
+    "message": "Me esquecer quando eu fechar este site",
     "description": "Marble Shields panel (marble/shields.html)"
   },
   "marbleShields_filterLists": {
-    "message": "Filter lists",
+    "message": "Listas de filtros",
     "description": "Marble Shields panel (marble/shields.html)"
   },
   "marbleShields_globalSettings": {
-    "message": "Global settings",
+    "message": "Configurações gerais",
     "description": "Marble Shields panel (marble/shields.html)"
   },
   "marbleShields_unavailable": {
-    "message": "Protections aren't available on this page.",
+    "message": "As proteções não estão disponíveis nesta página.",
     "description": "Marble Shields panel (marble/shields.html)"
   }
 }
