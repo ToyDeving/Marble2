@@ -1711,3 +1711,105 @@ popupnotificationcontent {
     }
   }
 }
+
+/* Toyser: modern permission prompts (doorhangers). */
+@media -moz-pref("toyser.menus.modern") {
+  .popup-notification-panel {
+    --panel-border-radius: 12px;
+    --button-border-radius: 8px;
+    --toyser-prompt-accent: var(--color-accent-primary, AccentColor);
+
+    &::part(content) {
+      border: 1px solid color-mix(in srgb, currentColor 14%, transparent);
+      box-shadow: 0 10px 32px rgba(0, 0, 0, 0.35);
+    }
+
+    .popup-notification-body-container {
+      padding: 16px 14px 4px 16px;
+    }
+
+    .popup-notification-description {
+      font-size: 1.05em;
+      line-height: 1.4;
+    }
+
+    .popup-notification-description-name {
+      color: var(--toyser-prompt-accent);
+    }
+
+    .popup-notification-learnmore-link {
+      color: var(--toyser-prompt-accent);
+      text-decoration: none;
+      margin-top: 4px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    /* Show a round, tinted icon for the common site permissions. */
+    .popup-notification-icon:is(
+        [popupid="web-notifications"],
+        [popupid="geolocation"],
+        [popupid="xr"],
+        [popupid="persistent-storage"],
+        [popupid="storage-access"],
+        [popupid="loopback-network"],
+        [popupid="local-network"]
+      ) {
+      display: block;
+      width: 20px;
+      height: 20px;
+      padding: 8px;
+      box-sizing: content-box;
+      margin-inline-end: 12px;
+      border-radius: 10px;
+      background-color: color-mix(in srgb, var(--toyser-prompt-accent) 18%, transparent);
+      fill: var(--toyser-prompt-accent);
+    }
+
+    .popup-notification-icon[popupid="web-notifications"] {
+      list-style-image: url(chrome://browser/skin/notification-icons/desktop-notification.svg);
+    }
+    .popup-notification-icon[popupid="geolocation"] {
+      list-style-image: url(chrome://browser/skin/notification-icons/geo.svg);
+    }
+    .popup-notification-icon[popupid="xr"] {
+      list-style-image: url(chrome://browser/skin/notification-icons/xr.svg);
+    }
+    .popup-notification-icon:is([popupid="persistent-storage"]) {
+      list-style-image: url(chrome://browser/skin/notification-icons/persistent-storage.svg);
+    }
+    .popup-notification-icon[popupid="storage-access"] {
+      list-style-image: url(chrome://browser/skin/controlcenter/3rdpartycookies.svg);
+    }
+    .popup-notification-icon[popupid="loopback-network"] {
+      list-style-image: url(chrome://browser/skin/notification-icons/local-host.svg);
+    }
+    .popup-notification-icon[popupid="local-network"] {
+      list-style-image: url(chrome://browser/skin/notification-icons/local-network.svg);
+    }
+
+    .popup-notification-closebutton {
+      margin: -6px -4px 0 8px;
+      border-radius: 6px;
+      opacity: 0.6;
+
+      &:hover {
+        opacity: 1;
+        background-color: color-mix(in srgb, currentColor 12%, transparent);
+      }
+    }
+
+    .panel-footer {
+      margin: 12px 16px 16px;
+      gap: 8px;
+    }
+
+    :is(.popup-notification-primary-button, .popup-notification-secondary-button)::part(button) {
+      min-height: 32px;
+      padding-inline: 16px;
+      font-weight: 600;
+    }
+  }
+}
