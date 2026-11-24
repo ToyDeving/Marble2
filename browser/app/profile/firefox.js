@@ -2254,6 +2254,8 @@ pref("toolkit.telemetry.archive.enabled", false);
 // Toyser: show web notifications in Toyser's own popup. The Windows system
 // backend fails ("errored") because Toyser has no registered toast identity.
 pref("alerts.useSystemBackend", false);
+// Toyser: show notifications even when Windows says it is "busy".
+pref("toyser.alerts.respectWindowsBusyState", false);
 
 // Bump toyser.version for every release; see docs/toyser-releases.md.
 pref("toyser.version", "1.2.0");

@@ -8,6 +8,7 @@
 #include "mozilla/ClearOnShutdown.h"
 #include "mozilla/Services.h"
 #include "mozilla/StaticPrefs_alerts.h"
+#include "mozilla/Preferences.h"
 #include "nsServiceManagerUtils.h"
 #include "nsXULAlerts.h"
 
@@ -58,7 +59,12 @@ bool nsAlertsService::ShouldShowAlert() {
   bool result = true;
 
 #ifdef XP_WIN
-  if (!xpc::IsInAutomation()) {
+  // Toyser: Windows often reports "busy" (a full-screen app or game on any
+  // monitor), which silently drops every notification. Only respect that
+  // state when the user opts in.
+  if (!xpc::IsInAutomation() &&
+      mozilla::Preferences::GetBool("toyser.alerts.respectWindowsBusyState",
+                                    false)) {
     QUERY_USER_NOTIFICATION_STATE qstate;
     if (SUCCEEDED(SHQueryUserNotificationState(&qstate))) {
       if (qstate != QUNS_ACCEPTS_NOTIFICATIONS) {
