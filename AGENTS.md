@@ -55,3 +55,6 @@ You can find the review identifier by inspecting the commit log with:
 - Never put `DONTBUILD` (or `CLOSED TREE`) in the `-m` message of `mach try fuzzy` / `mach try compare` when you want builds to actually run. The Gecko decision task scans the message and on `DONTBUILD` strips every task from the graph: the decision task itself succeeds (Treeherder shows green) but no builds are scheduled.
 - When doing Android and Desktop front-end-only changes, use the special `./mach build faster` to skip all C++/Rust compilation.
 - Conversely, for C/C++/Obj-C/Rust only changes you can use the special `./mach build binaries` to skip all front-end-related tasks.
+
+# Toyser
+- After every change you make for the user, bump `toyser.version` in `browser/app/profile/firefox.js` by one minor version (1.4.0 -> 1.5.0) and commit the change together with the bump. Also update the same pref in `obj-x86_64-pc-windows-msvc/dist/bin/browser/defaults/preferences/firefox.js`. Tell the user the new version number, which is the tag to publish (`v1.5.0`).
