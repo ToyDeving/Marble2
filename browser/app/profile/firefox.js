@@ -2258,7 +2258,7 @@ pref("alerts.useSystemBackend", false);
 pref("toyser.alerts.respectWindowsBusyState", false);
 
 // Bump toyser.version for every release; see docs/toyser-releases.md.
-pref("toyser.version", "1.2.0");
+pref("toyser.version", "1.3.0");
 pref("toyser.update.enabled", true);
 pref("toyser.update.repository", "ToyDeving/Marble2");
 // Marble Shields: built-in ad and tracker blocker (uBlock Origin engine,
