@@ -22,6 +22,7 @@ const SKIP_PREF = "toyser.update.skipVersion";
 const CHECK_EVERY_SECONDS = 24 * 60 * 60;
 const FIRST_CHECK_DELAY_MS = 30 * 1000;
 const NOTIFICATION_VALUE = "toyser-update-available";
+const RESULT_NOTIFICATION_VALUE = "toyser-update-check-result";
 
 function versionOf(tag) {
   return String(tag || "").replace(/^v/i, "").trim();
@@ -71,14 +72,44 @@ export const ToyserUpdate = {
   },
 
   /**
+   * "Check for updates" in the app menu: checks right away, even for a
+   * skipped version. A newer version shows the update bar in every window;
+   * otherwise this window gets a short "up to date" or "failed" bar.
+   */
+  async checkNow(win) {
+    const box = win.gNotificationBox;
+    box?.getNotificationWithValue(RESULT_NOTIFICATION_VALUE)?.close();
+    Services.prefs.setIntPref(LAST_CHECK_PREF, nowSeconds());
+    Services.prefs.clearUserPref(SKIP_PREF);
+    const result = await this.check();
+    if (result && result !== "error") {
+      return;
+    }
+    if (!box) {
+      return;
+    }
+    const label =
+      result === "error"
+        ? await win.document.l10n.formatValue("toyser-update-check-failed")
+        : await win.document.l10n.formatValue("toyser-update-up-to-date", {
+            version: Services.prefs.getStringPref(VERSION_PREF, ""),
+          });
+    await box.appendNotification(RESULT_NOTIFICATION_VALUE, {
+      label,
+      priority:
+        result === "error" ? box.PRIORITY_WARNING_LOW : box.PRIORITY_INFO_LOW,
+    });
+  },
+
+  /**
    * Looks up the latest release. Returns it if it is newer than this
-   * version, else null.
+   * version, null if there is nothing newer, or "error" if the lookup failed.
    */
   async check() {
     const repo = Services.prefs.getStringPref(REPO_PREF, "");
     const current = Services.prefs.getStringPref(VERSION_PREF, "0");
     if (!repo) {
-      return null;
+      return "error";
     }
     let release;
     try {
@@ -87,12 +118,12 @@ export const ToyserUpdate = {
         { headers: { Accept: "application/vnd.github+json" } }
       );
       if (!response.ok) {
-        return null;
+        return "error";
       }
       release = await response.json();
     } catch (ex) {
       console.warn("Toyser update check failed", ex);
-      return null;
+      return "error";
     }
 
     const version = versionOf(release.tag_name);
