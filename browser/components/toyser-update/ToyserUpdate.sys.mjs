@@ -12,6 +12,7 @@
 const lazy = {};
 ChromeUtils.defineESModuleGetters(lazy, {
   Downloads: "resource://gre/modules/Downloads.sys.mjs",
+  PlacesUtils: "resource://gre/modules/PlacesUtils.sys.mjs",
 });
 
 const VERSION_PREF = "toyser.version";
@@ -21,6 +22,8 @@ const LAST_CHECK_PREF = "toyser.update.lastCheck";
 const SKIP_PREF = "toyser.update.skipVersion";
 const CHECK_EVERY_SECONDS = 24 * 60 * 60;
 const FIRST_CHECK_DELAY_MS = 30 * 1000;
+const CLEANUP_DELAY_MS = 10 * 1000;
+const INSTALLER_NAME = /^Toyser-.+-Instalador\.exe$/i;
 const NOTIFICATION_VALUE = "toyser-update-available";
 const RESULT_NOTIFICATION_VALUE = "toyser-update-check-result";
 
@@ -46,6 +49,7 @@ export const ToyserUpdate = {
       return;
     }
     this._started = true;
+    win.setTimeout(() => this._removeOldInstallers(), CLEANUP_DELAY_MS);
     win.setTimeout(() => this._checkIfDue(), FIRST_CHECK_DELAY_MS);
     // Keep checking once a day for people who never close the browser.
     Services.tm.dispatchToMainThread(() => {
@@ -183,6 +187,41 @@ export const ToyserUpdate = {
         },
       ]
     );
+  },
+
+  /**
+   * Deletes installers that "Update now" downloaded earlier, and removes
+   * them from the downloads list. An installer that is still running is
+   * locked, so it is left for the next startup.
+   */
+  async _removeOldInstallers() {
+    let removed = [];
+    try {
+      for (const path of await IOUtils.getChildren(PathUtils.tempDir)) {
+        if (!INSTALLER_NAME.test(PathUtils.filename(path))) {
+          continue;
+        }
+        try {
+          await IOUtils.remove(path);
+          removed.push(path);
+        } catch (ex) {}
+      }
+      if (!removed.length) {
+        return;
+      }
+      const list = await lazy.Downloads.getList(lazy.Downloads.ALL);
+      for (const download of await list.getAll()) {
+        if (removed.includes(download.target.path)) {
+          await list.remove(download);
+          await download.finalize(true).catch(() => {});
+          await lazy.PlacesUtils.history
+            .remove(download.source.url)
+            .catch(() => {});
+        }
+      }
+    } catch (ex) {
+      console.warn("Toyser installer cleanup failed", ex);
+    }
   },
 
   /** Downloads the installer and runs it; falls back to the release page. */
